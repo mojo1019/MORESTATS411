@@ -150,5 +150,5 @@ smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, co
 
 (violin_plot) / (smoothed_plot) 
 ```
-
+ 
 
