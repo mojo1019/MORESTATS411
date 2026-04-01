@@ -93,7 +93,7 @@ climb_model <- lm(percent_climbed ~ rest.time + attempt_adj +  grade_category, d
 summary(climb_model)
 
 ```
-
+\newpage
 ```{r}
 #| echo: FALSE
 #| warning: FALSE
@@ -109,7 +109,7 @@ summary(climb_model)
     x = "Rest Time (min)",
     y = "Percent Climbed"
   ) + 
-  theme_minimal() 
+  theme_bw() 
   
 ```
 
@@ -128,7 +128,7 @@ smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, co
     y = "Percent Climbed"
   ) +
   scale_color_viridis_d(option = "magma") +
-  theme_minimal()
+  theme_bw()
 
 ```
 
@@ -137,7 +137,7 @@ smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, co
 #| warning: FALSE
 #| messages: FALSE
 #| fig-width: 20
-#| fig-height: 10
+#| fig-height: 8
 
 combined_plot <- violin_plot + smoothed_plot +
   plot_layout(ncol = 2, guides = "collect") &
