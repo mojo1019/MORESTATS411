@@ -1,0 +1,132 @@
+---
+title: "411_climb_project"
+date: "04-01-2026"
+author: "Sam Pruitt & Mason Barnocky"
+format: pdf
+
+---
+
+# Abstract
+
+Understanding how rest influences physical performance is a critical element of optimizing training and recovery in sport climbing. Rest times between attempts while gym climbing may have a significant impact on a climber’s ability to finish a route, yet this relationship remains unexplored in a statistical context. This paper aims to quantify how different rest intervals impact auto-belay climbing performance for recreational climbers. 
+
+To put this into motion, a convenience sample of recreational climbers was taken and assigned to repeated climbing attempts with rest intervals of 1, 3, and 5 minutes. During each set of attempts, rest times were randomly assigned using a random number generator. The performance of each attempt was measured by the proportion of the route completed, which was standardized by using the wall panels as a measurement. Variables such as route difficulty and attempt number were also recorded to account for skill level and fatigue. 
+
+# Intro
+
+Rock climbing is a physically and mentally demanding activity that requires strength, endurance, and strategic thinking. Managing energy levels throughout a session is essential to climbing performance. One factor that may influence a climber’s performance is the amount of time a climber rests between attempts. Resting allows muscles to recover, reduces fatigue, and may improve a climber’s ability to perform difficult movements. Rest periods that are too short may lead to accumulated fatigue, while excessively long rest periods may not provide additional benefits and can reduce the efficiency of a climbing session.
+
+Resting properly is an essential part of any sport. Without proper rest, athletes are much more prone to injury and underperformance. Many sports have extensive research on the impact of rest. Climbing however, being a relatively new sport, the impact of proper rest is generally unstudied and underexplored. Because climbing involves repeated high intensity efforts, developing a better understanding of how resting properly can enhance the climbing experience is an important task. 
+	
+The research we conducted was to investigate how rest time between climbing attempts affects the outcomes of climbing performance. By collecting and analyzing data on rest duration and climbing success, we aim to examine whether longer rest periods are associated with improved climbing performance. Understanding this relationship may help climbers structure their sessions more effectively and manage fatigue during repeated climbing attempts. 
+
+## Methods
+
+To explore the relationship between rest time and performance in indoor rock climbing, a convivence sample of  2 climbers was taken. Both climbers are juniors at Montana State University, as well as members of Spire Climbing and Fitness, located in Bozeman, Montana. 
+To control for skill level, participants were asked to provide their threshold grade in the Yosemite Decimal System (YDS). This threshold grade would be the grade at which participants would climb during the study, and using suggestions from the UIAA, would be placed into one of three skill categories, Intermediate ( 5.10a-d), Advanced (5.11a-d), or Expert (5.12a-d). Climbing was done on auto-belays, to maximize the efficiency and availability of data collection. 
+
+Climbs were done in sets of three attempts or six , selected at random. Before a set, climbers were allowed one warm up climb on a climb that was one skill category below their threshold category. The first rest interval would start after the warmup climb was completed. Rest times were selected at random by a random number generator.  After each spin, the selected rest time would be removed, as to not repeat any times. If a climber was doing a six-attempt set, they would reset the random number generator after the third attempt. Rest intervals were timed using a standard iPhone timer. 
+
+
+Once a climber completed an attempt, they would calculate their performance by counting the number of panels reached and then divide that by ten (the total number of panels). Attempts were recorded into an excel spreadsheet with five variables, Climber, Attempt number, Grade, Rest Time, and Date.
+
+With the possibility of completing a climb (100%), our data is not normally distributed. This brought up some discussion of what statistical procedure to implement, and a Kruskal – Wallis test seemed reasonable, as it is an extension of a Wilcoxon Rank Sum test that allows for three or more groups. However, attempts from each climber are correlated, therefore we violate the assumption of independence necessary to run Kruskal – Wallis. This violation of independence could possibly nullify the option of using a multiple linear regression, however we can get around that violation if we add the grade category into the model as a fixed effect instead of a random effect. An MLR can also account for the violation against normality, as it takes assumptions from the residuals and not from the raw data.
+\newpage
+
+```{r} 
+#| include: FALSE
+library(tidyverse)
+library(lme4)
+library(lmerTest)
+library(modelsummary)
+library(viridis)
+```
+
+```{r}
+#| include: FALSE
+climb_proj <- read.csv("411_proj_updated.csv")
+
+climb_proj <- climb_proj |>
+  rename( percent_climbed = X..climbed)
+
+```
+
+```{r}
+#| include: FALSE
+climb_proj <- climb_proj |>
+  mutate(rest.time = factor(rest.time))
+
+```
+```{r}
+#| include: FALSE
+climb_proj <- climb_proj |>
+  mutate(
+    grade_category = case_when(
+      str_starts(grade, "10") ~ "Intermediate",
+      str_starts(grade, "11") ~ "Advanced",
+      str_starts(grade, "12") ~ "expert"
+    )
+  )
+  
+```
+
+
+```{r}
+#| include: FALSE
+# Mixed model version (best for repeated attempts and 2 climbers)
+
+# adjust attempts
+climb_proj$attempt_adj <- climb_proj$attempt - 1  
+
+# set name as factor
+climb_proj$name <- as.factor(climb_proj$name)
+```
+
+```{r}
+#| echo: FALSE
+
+climb_model <- lm(percent_climbed ~ rest.time + attempt_adj +  grade_category, data = climb_proj)
+
+ 
+
+summary(climb_model)
+
+```
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| fig-cap: 'This plot shows how rest time in minutes affects climbing performance. A 3 minute rest time shows the most variability in climbing performance. While rest times of 1 and 5 minutes share the same range, a rest time of 1 minute shows a much lower mean performance.'
+climb_proj |>
+  ggplot(aes(x = rest.time, y = percent_climbed, fill = rest.time)) +
+  scale_fill_viridis(option = "plasma", discrete = TRUE) +
+  geom_violin(alpha = 0.5) +
+  geom_boxplot(width = 0.2, alpha = 0.7) +
+  geom_jitter(size = 1, alpha = 1) +
+  labs(
+    title = "Percent of Climb Completed by Rest Time",
+    x = "Rest Time (min)",
+    y = "Percent Climbed"
+  ) + 
+  theme_minimal() 
+  
+```
+
+```{r} 
+#| echo: FALSE
+#| warning: FALSE
+#| message: FALSE
+#| fig-cap: 'This plot shows how attempt number affects climbing performance, grouped by rest time. All three rest intervals showed a negative trend in performance as attempt number increased.'
+climb_proj |>
+ggplot(aes(x = attempt_adj, y = percent_climbed, color = rest.time)) +
+  geom_jitter(size = 0.6) +
+  geom_smooth(method = 'lm', se = TRUE, size = 0.6, fill = 'grey70') +
+  labs(
+    title = "Effect of Attempts on Climbing Performance, by Rest Time",
+    x = "Attempt",
+    y = "Percent Climbed"
+  ) +
+  scale_color_viridis_d(option = "magma") +
+  theme_minimal()
+
+```
