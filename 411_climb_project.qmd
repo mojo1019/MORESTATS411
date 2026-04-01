@@ -123,7 +123,7 @@ summary(climb_model)
 #| message: FALSE
 
 smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, color = rest.time)) +
-  geom_jitter(size = 0.6) +
+  geom_jitter(size = 1) +
   geom_smooth(method = 'lm', se = F, size = 2) +
   labs(
     title = "Effect of Attempts on Climbing Performance, by Rest Time",
