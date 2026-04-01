@@ -97,7 +97,6 @@ summary(climb_model)
 ```{r}
 #| echo: FALSE
 #| warning: FALSE
-#| fig-cap: 'This plot shows how rest time in minutes affects climbing performance. A 3 minute rest time shows the most variability in climbing performance. While rest times of 1 and 5 minutes share the same range, a rest time of 1 minute shows a much lower mean performance.'
 
  violin_plot <- ggplot(climb_proj, aes(x = rest.time, y = percent_climbed, fill = rest.time)) +
   scale_fill_viridis(option = "plasma", discrete = TRUE) +
@@ -107,7 +106,12 @@ summary(climb_model)
   labs(
     title = "Percent of Climb Completed by Rest Time",
     x = "Rest Time (min)",
-    y = "Percent Climbed"
+    y = "Percent Climbed",
+    caption = "This plot shows how rest time in minutes affects climbing
+               performance. A 3 minute rest time shows the most
+               variability in  climbing performance. While rest times 
+               of 1 and 5 minutes share the same range, a rest time
+               of 1 minute shows a much lower mean performance."
   ) + 
   theme_bw() 
   
@@ -117,33 +121,34 @@ summary(climb_model)
 #| echo: FALSE
 #| warning: FALSE
 #| message: FALSE
-#| fig-cap: 'This plot shows how attempt number affects climbing performance, grouped by rest time. All three rest intervals showed a negative trend in performance as attempt number increased.'
 
 smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, color = rest.time)) +
   geom_jitter(size = 0.6) +
-  geom_smooth(method = 'lm', se = TRUE, size = 0.6, fill = 'grey70') +
+  geom_smooth(method = 'lm', se = F, size = 2) +
   labs(
     title = "Effect of Attempts on Climbing Performance, by Rest Time",
     x = "Attempt",
-    y = "Percent Climbed"
+    y = "Percent Climbed",
+    caption = "This plot shows how attempt number affects climbing 
+               performance, grouped by rest time. All three rest
+               intervals showed a negative trend in performance
+               as attempt number increased"
   ) +
-  scale_color_viridis_d(option = "magma") +
+  scale_color_viridis_d(option = "plasma") +
   theme_bw()
 
 ```
+
+
 
 ```{r}
 #| echo: FALSE
 #| warning: FALSE
 #| messages: FALSE
 #| fig-width: 20
-#| fig-height: 8
+#| fig-height: 20
 
-combined_plot <- violin_plot + smoothed_plot +
-  plot_layout(ncol = 2, guides = "collect") &
-  theme(legend.position = "bottom")
-
-combined_plot 
-
+(violin_plot) / (smoothed_plot) 
 ```
+
 
