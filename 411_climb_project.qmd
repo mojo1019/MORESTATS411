@@ -40,6 +40,7 @@ library(lme4)
 library(lmerTest)
 library(modelsummary)
 library(viridis)
+library(patchwork)
 ```
 
 ```{r}
@@ -97,8 +98,8 @@ summary(climb_model)
 #| echo: FALSE
 #| warning: FALSE
 #| fig-cap: 'This plot shows how rest time in minutes affects climbing performance. A 3 minute rest time shows the most variability in climbing performance. While rest times of 1 and 5 minutes share the same range, a rest time of 1 minute shows a much lower mean performance.'
-climb_proj |>
-  ggplot(aes(x = rest.time, y = percent_climbed, fill = rest.time)) +
+
+ violin_plot <- ggplot(climb_proj, aes(x = rest.time, y = percent_climbed, fill = rest.time)) +
   scale_fill_viridis(option = "plasma", discrete = TRUE) +
   geom_violin(alpha = 0.5) +
   geom_boxplot(width = 0.2, alpha = 0.7) +
@@ -117,8 +118,8 @@ climb_proj |>
 #| warning: FALSE
 #| message: FALSE
 #| fig-cap: 'This plot shows how attempt number affects climbing performance, grouped by rest time. All three rest intervals showed a negative trend in performance as attempt number increased.'
-climb_proj |>
-ggplot(aes(x = attempt_adj, y = percent_climbed, color = rest.time)) +
+
+smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, color = rest.time)) +
   geom_jitter(size = 0.6) +
   geom_smooth(method = 'lm', se = TRUE, size = 0.6, fill = 'grey70') +
   labs(
@@ -130,3 +131,19 @@ ggplot(aes(x = attempt_adj, y = percent_climbed, color = rest.time)) +
   theme_minimal()
 
 ```
+
+```{r}
+#| echo: FALSE
+#| warning: FALSE
+#| messages: FALSE
+#| fig-width: 20
+#| fig-height: 10
+
+combined_plot <- violin_plot + smoothed_plot +
+  plot_layout(ncol = 2, guides = "collect") &
+  theme(legend.position = "bottom")
+
+combined_plot 
+
+```
+
