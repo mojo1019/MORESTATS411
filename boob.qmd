@@ -4,4 +4,3 @@ format: html
 editor: visual
 ---
 
-## balls n shit
