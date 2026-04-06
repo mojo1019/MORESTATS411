@@ -31,6 +31,17 @@ Because rest times were randomly assigned for each climbing attempt, this study 
 	
 The assumptions of the multiple linear regression model were considered when completing the analysis. Although the response variable was not normally distributed because of the possibility of climbers completing 100% of the route, linear regression mainly relies on assumptions about the residuals. A residuals vs fitted plot was examined to assess linearity and constant variance. The residuals appeared randomly scattered around zero with no strong patterns, suggesting that the assumption of linearity is reasonable. The spread of the residuals, while having some mild variation, did not display a clear trend, therefore there were no major violations of the constant variance assumption. Because attempts were repeated for the same 2 climbers, there may still be some dependence between observations, which could have an effect on the independence assumption of the model.
 
+# Discussion
+
+The goal of this study was to investigate how rest time between climbing attempts affects climbing performance, measured as the percentage of the route completed. While the statistical model did not provide strong evidence that rest time affects climbing performance, the observed trends in the data suggest that rest duration may still play an important role in climbing sessions. Longer rest intervals were associated with slightly higher average climbing performance compared to the shortest rest interval.  This pattern is consistent with the general understanding of fatigue and recovery in physical activity, where allowing more time for muscle recovery may improve the ability to perform high intensity movements.
+
+	Another notable pattern observed in the data was the negative relationship between attempt number and climbing performance. As climbers completed more attempts, the percentage of the route completed tended to decrease slightly. This result is consistent with the idea that fatigue accumulates over repeated climbing attempts, even when rest attempts are included. In climbing, repeated attempts on difficult routes can lead to muscle fatigue in body, which may limit performance on later attempts.
+
+	Despite these trends, the study has several limitations that may have influenced the results. The most important limitation is the small sample size, as data was collected from only two climbers. This limited the power of the analysis and makes it difficult to detect meaningful relationships between rest time and performance. Additionally, attempts from the same climbers may be correlated which could affect the independence assumption of the model. The use of a convivence sample from a single climbing gym also limits the generalizability of the findings.
+
+	Future research could improve this study by collecting data from a larger and more diverse group of climbers. Including climbers with a wider range of skill levels and climbing styles could provide a more complete understanding of how rest affects climbing performance. Further studies could also examine additional factors that influence climbing performance, such as route difficulty, climb type, or reported climber fatigue levels. Expanding the dataset and exploring these additional variables could help clarify the role that resting plays in optimizing climbing performance.
+
+
 
 \newpage
 
