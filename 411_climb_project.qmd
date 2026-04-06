@@ -75,7 +75,6 @@ climb_proj <- climb_proj |>
 
 ```{r}
 #| include: FALSE
-# Mixed model version (best for repeated attempts and 2 climbers)
 
 # adjust attempts
 climb_proj$attempt_adj <- climb_proj$attempt - 1  
@@ -101,7 +100,7 @@ summary(climb_model)
 #| echo: FALSE
 #| warning: FALSE
 
- violin_plot <- ggplot(climb_proj, aes(x = rest.time, y = percent_climbed, fill = rest.time)) +
+ violin_plot <- ggplot(climb_proj, aes(x = rest.time, y = percent_climbed, fill = rest.time, na.rm = FALSE)) +
   scale_fill_viridis(option = "plasma", discrete = TRUE) +
   geom_violin(alpha = 0.5) +
   geom_boxplot(width = 0.2, alpha = 0.7) +
@@ -125,7 +124,7 @@ summary(climb_model)
 #| warning: FALSE
 #| message: FALSE
 
-smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, color = rest.time)) +
+smoothed_plot <- ggplot(climb_proj, aes(x = attempt_adj, y = percent_climbed, color = rest.time, na.rm = FALSE)) +
   geom_jitter(size = 3) +
   geom_smooth(method = 'lm', se = F, size = 2) +
   labs(
