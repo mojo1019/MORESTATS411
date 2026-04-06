@@ -183,6 +183,6 @@ ggplot(model_data, aes(x = fitted, y = residuals)) +
     x = "Fitted values",
     y = "Residuals",
     title = "Residuals vs Fitted Values"
-  ) + theme_bw()
+  ) + theme_bw() + geom_smooth(method = "loess", se = F, color = "red")
 
 ```
