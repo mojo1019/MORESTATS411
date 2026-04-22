@@ -1,0 +1,115 @@
+---
+title: "sam_edited_proj"
+format: pdf
+editor: visual
+---
+
+# Abstract
+
+_1._ Understanding how rest influences physical performance is a critical element of optimizing training and recovery in sport climbing. Rest times between attempts while gym climbing may have an important impact on a climber’s ability to finish a route, yet this relationship remains unexplored in a statistical context. This paper aims to quantify how different rest intervals impact auto-belay climbing performance for recreational climbers. 
+
+_2._ To put this into motion, a convenience sample of recreational climbers was taken randomly and assigned to repeated climbing attempts with rest intervals of 1, 3, and 5 minutes. Results from a multiple linear regression yield suggestive but not conclusive evidence that rest time influences climbing performance while accounting for attempt number and route difficulty (p = 0.086, $R^2=0.26$). While no individual predictors were substantial, trends show that longer rest intervals were associated with some increase in performance, and that performance tended to decline with repeated attempts. 
+
+_3._ The findings of this study highlight the importance of recovery in sport climbing, suggesting that building good rest strategies may positively influence climbing performance, however further research is needed to validate these relationships in climbing.
+
+
+
+# Methods
+
+_1.0 Primininary Actions_
+
+To explore the relationship between rest time and performance in indoor rock climbing, a convenience sample of 2 climbers was taken. Both climbers were juniors at Montana State University, as well as members of Spire Climbing and Fitness, located in Bozeman, Montana. To control for skill level, participants were asked to provide their threshold grade in the Yosemite Decimal System (YDS). This threshold grade would be the grade at which participants would climb during the study, and using suggestions from the UIAA, would be placed into one of three skill categories, Intermediate (5.10a-d), Advanced (5.11a-d), or Expert (5.12a-d). Climbing was done on auto-belays, to maximize the efficiency and availability of data collection.
+
+
+_1.1 Experimental Design_
+
+Climbs were done in sets of three attempts or six attempts, selected at random. Before a set, climbers were allowed one warm up climb on a climb that was one skill category below their threshold category. The first rest interval would start immediately after the warmup climb was completed. Rest times of 1 minute, 3 minutes, and 5 minutes were selected at random by a random number generator. After each spin, the selected rest time would be removed, as to not repeat any rest times. If a climber was doing a six-attempt set, they would reset the random number generator after the third attempt. Rest intervals were timed using a standard iPhone timer. Once a climber completed an attempt, they would calculate their performance by counting the number of wall panels reached and then divide that by ten (the total number of panels). Attempts were recorded into an excel spreadsheet with five variables, Climber, Attempt number, Grade, Rest Time, and Date.
+
+_1.2 Statistical Procedures_
+
+Given that this study consists of a single dependent variable and three independent predictor variables, a multiple linear regression (MLR) model was chosen to fit the data. Another reason for using a MLR over other models was due to assumption violations in our data. With the possibility of completing a climb (100%), acquiring normally distributed data would be difficult, however an MLR allows for residuals to be accessed for the assumption of normality instead of the raw data.
+
+\newpage
+
+
+```{r}
+#| include: FALSE
+library(tidyverse)
+library(lme4)
+library(lmerTest)
+library(modelsummary)
+library(viridis)
+library(patchwork)
+library(knitr)
+```
+
+```{r}
+#| include: FALSE
+climb_proj <- read.csv("411_proj_updated.csv")
+
+climb_proj <- climb_proj |>
+  rename( percent_climbed = X..climbed) |>
+  filter(!is.na(percent_climbed)) |>
+  mutate(name = case_when(
+    name == "sam" ~ "S",
+    name == "mason" ~ "M",
+    TRUE ~ name
+  ))
+
+```
+
+```{r}
+#| include: FALSE
+climb_proj <- climb_proj |>
+  mutate(rest.time = factor(rest.time))
+
+```
+
+```{r}
+#| include: FALSE
+climb_proj <- climb_proj |>
+  mutate(
+    grade_category = case_when(
+      str_starts(grade, "10") ~ "Intermediate",
+      str_starts(grade, "11") ~ "Advanced",
+      str_starts(grade, "12") ~ "expert"
+    )
+  )
+  
+```
+
+```{r}
+#| include: FALSE
+
+# adjust attempts
+climb_proj$attempt_adj <- climb_proj$attempt - 1  
+
+# set name as factor
+climb_proj$name <- as.factor(climb_proj$name)
+```
+
+
+_1.3 Data_
+
+```{r}
+#| echo: FALSE
+kable(climb_proj[, c("name", "date", "attempt", "grade", "rest.time", "percent_climbed", "grade_category", "attempt_adj")], caption = "Climb Data", na.rm = TRUE)
+```
+
+
+
+
+_1.4 Model Output_
+```{r}
+#| echo: FALSE
+
+climb_model <- lm(percent_climbed ~ rest.time + attempt_adj +  grade_category, data = climb_proj)
+
+ 
+
+summary(climb_model)
+
+```
+
+
+
