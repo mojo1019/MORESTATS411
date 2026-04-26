@@ -12,6 +12,15 @@ editor: visual
 
 *3.* The findings of this study highlight the importance of recovery in sport climbing, suggesting that building good rest strategies may positively influence climbing performance, however further research is needed to validate these relationships in climbing.
 
+
+# Introduction
+
+Rock climbing is a physically and mentally demanding activity that requires strength, endurance, and strategic thinking. Managing energy levels throughout a session is essential to climbing performance, and one key factor in energy management is the amount of time a climber rests between attempts. Resting allows muscles to recover, reduces fatigue, and may improve a climber's ability to perform difficult movements. Rest periods that are too short may lead to accumulated fatigue, while exessively long rest periods may reduce the efficiency of a climbing session. 
+
+Despite the importance of rest in athletic performance, climbing remains understudied in this area. Resting properly is an essential component of any sport, and many disciplines have extensive research documenting its impact on performance and injury prevention. Climbing, however, is a relatively new sport, and the effect of rest on performance is generally unexplored in a scientific context. Because climbing involves repeating high intensity efforts, developing a better understanding of how rest intervals influence performance is an important task.
+
+This study investigated how rest time between climbing attempts affects the percentage of a route completed. By collecting and analyzing data on rest duration and climbing performance, we aim to examine whether longer rest periods are associated with improved climbing outcomes. Understanding this relationship may help climbers structure their sessions more effectively and manage fatigue over the course of repeated attempts.
+
 # Methods
 
 *1.0 Primininary Actions*
