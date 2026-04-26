@@ -111,5 +111,9 @@ summary(climb_model)
 
 ```
 
+```{r}
+TukeyHSD()
+
+```
 
 
