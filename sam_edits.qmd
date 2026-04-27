@@ -13,10 +13,9 @@ editor: visual
 
 *3.* The findings of this study highlight the importance of recovery in sport climbing, suggesting that building good rest strategies may positively influence climbing performance, however further research is needed to validate these relationships in climbing.
 
-
 # Introduction
 
-Rock climbing is a physically and mentally demanding activity that requires strength, endurance, and strategic thinking. Managing energy levels throughout a session is essential to climbing performance, and one key factor in energy management is the amount of time a climber rests between attempts. Resting allows muscles to recover, reduces fatigue, and may improve a climber's ability to perform difficult movements. Rest periods that are too short may lead to accumulated fatigue, while exessively long rest periods may reduce the efficiency of a climbing session. 
+Rock climbing is a physically and mentally demanding activity that requires strength, endurance, and strategic thinking. Managing energy levels throughout a session is essential to climbing performance, and one key factor in energy management is the amount of time a climber rests between attempts. Resting allows muscles to recover, reduces fatigue, and may improve a climber's ability to perform difficult movements. Rest periods that are too short may lead to accumulated fatigue, while exessively long rest periods may reduce the efficiency of a climbing session.
 
 Despite the importance of rest in athletic performance, climbing remains understudied in this area. Resting properly is an essential component of any sport, and many disciplines have extensive research documenting its impact on performance and injury prevention. Climbing, however, is a relatively new sport, and the effect of rest on performance is generally unexplored in a scientific context. Because climbing involves repeating high intensity efforts, developing a better understanding of how rest intervals influence performance is an important task.
 
@@ -113,6 +112,7 @@ climb_model <- lm(percent_climbed ~ rest.time + attempt_adj +  grade_category, d
 summary(climb_model)
 
 ```
+
 \newpage
 
 # Results
@@ -123,12 +123,7 @@ summary(climb_model)
 confint(climb_model)
 ```
 
-
-To examine the relationship between rest time and climbing performance, a multiple linear regression model was fit with percent of the climb completed as the response variable and rest time, attempt number, and grade category as explanatory variables. The overall model explained a modest portion of the variation in climbing performance (R2R^2
-R2 = 0.264, adjusted R2R^2
-R2 = 0.141). The overall model did not provide convincing evidence of an effect at the α\alpha
-α = 0.05 level (F = 2.152, p = 0.086). In terms of effect size, the 3-minute rest interval was associated with an estimated increase of 3.6 percentage points in route completion compared to the 1-minute interval (95% CI: [−0.129, 0.201]), while the 5-minute interval was associated with an estimated increase of 6.4 percentage points (95% CI: [−0.100, 0.229]). Attempt number showed a slight negative relationship with performance (β\beta
-β = −0.027, 95% CI: [−0.068, 0.014], p = 0.187), suggesting climbers completed roughly 2.7 fewer percentage points of the route per additional attempt. However, all confidence intervals crossed zero, and none of the predictors provided convincing evidence of a meaningful effect on the percentage of the climb completed.
+To examine the relationship between rest time and climbing performance, a multiple linear regression model was fit with percent of the climb completed as the response variable and rest time, attempt number, and grade category as explanatory variables. The overall model explained a modest portion of the variation in climbing performance ( $R^2$ = 0.264, adjusted $R^2$ = 0.141). The overall model did not provide convincing evidence of an effect at the $\alpha$ = 0.05 level (F = 2.152, p = 0.086). In terms of effect size, the 3-minute rest interval was associated with an estimated increase of 3.6 percentage points in route completion compared to the 1-minute interval (95% CI: \[−0.129, 0.201\]), while the 5-minute interval was associated with an estimated increase of 6.4 percentage points (95% CI: \[−0.100, 0.229\]). Attempt number showed a slight negative relationship with performance ( $\beta$ = −0.027, 95% CI: \[−0.068, 0.014\], p = 0.187), suggesting climbers completed roughly 2.7 fewer percentage points of the route per additional attempt. However, all confidence intervals crossed zero, and none of the predictors provided convincing evidence of a meaningful effect on the percentage of the climb completed.
 
 \newpage
 
@@ -213,16 +208,12 @@ ggplot(model_data, aes(x = fitted, y = residuals)) +
 
 ```
 
-
 # Discussion
 
 The goal of this study was to investigate how rest time between climbing attempts affects climbing performance, measured as the percentage of the route completed. While the statistical model did not provide strong evidence that rest time affects climbing performance, the observed trends in the data suggest that rest duration may still play an important role in climbing sessions. Longer rest intervals were associated with slightly higher average climbing performance compared to the shortest rest interval. This pattern is consistent with the general understanding of fatigue and recovery in physical activity, where allowing more time for muscle recovery may improve the ability to perform high intensity movements.
 
 Another notable pattern observed in the data was the negative relationship between attempt number and climbing performance. As climbers completed more attempts, the percentage of the route completed tended to decrease slightly. This result is consistent with the idea that fatigue accumulates over repeated climbing attempts, even when rest attempts are included. In climbing, repeated attempts on difficult routes can lead to muscle fatigue in body, which may limit performance on later attempts.
 
-Despite these trends, the study has several limitations that may have influenced the results. The most important limitation is the small sample size, as data was collected from only two climbers. This limited the power of the analysis and makes it difficult to detect meaningful relationships between rest time and performance. Additionally, attempts from the same climbers may be correlated which could affect the independence assumption of the model. The use of a convivence sample from a single climbing gym also limits the generalizability of the findings.
+Despite these trends, the study has several limitations that may have influenced the results. The most important limitation is the small sample size, as data was collected from only two climbers. This limited the power of the analysis and makes it difficult to detect meaningful relationships between rest time and performance. Additionally, attempts from the same climbers may be correlated which could affect the independence assumption of the model. The use of a convenience sample from a single climbing gym also limits the generalizability of the findings.
 
 Future research could improve this study by collecting data from a larger and more diverse group of climbers. Including climbers with a wider range of skill levels and climbing styles could provide a more complete understanding of how rest affects climbing performance. Further studies could also examine additional factors that influence climbing performance, such as route difficulty, climb type, or reported climber fatigue levels. Expanding the dataset and exploring these additional variables could help clarify the role that resting plays in optimizing climbing performance.
-
-
-
